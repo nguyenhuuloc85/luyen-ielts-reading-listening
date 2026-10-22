@@ -1,4 +1,4 @@
-# CLAUDE.md – Luyện đọc và nghe IELTS (~band 5.5)
+# CLAUDE.md – Luyện đọc và nghe IELTS (~band 6.5)
 
 - **Dự án:** ứng dụng một tệp `index.html` (HTML + CSS + JS thuần, không build), luyện đọc và nghe IELTS cho thầy Nguyễn Hữu Lộc. Độc lập với dự án chấm bài vẽ kỹ thuật.
 - **Cách trả lời:** tiếng Việt, đi thẳng vào vấn đề; chưa chắc thì nói rõ, không đoán.
@@ -39,9 +39,11 @@ Bài nghe dùng giọng tổng hợp của trình duyệt (Web Speech API); khô
 
 ## Chuẩn nội dung
 
-- **Độ khó band 5.5:** câu ngắn đến vừa, từ vựng thông dụng và học thuật cơ bản (B1–B2), mỗi bài đọc khoảng 330–370 từ, 5 đoạn A–E; bài nghe 7–17 lượt nói. Mỗi bài 6 câu trắc nghiệm A–D, một đáp án đúng.
+- **Độ khó band 6.5:** câu dài và phức tạp (mệnh đề quan hệ, câu bị động, liên từ tương phản), từ vựng B2–C1 kể cả từ học thuật và thành ngữ; bài đọc khoảng 380–520 từ, 5 đoạn A–E; bài nghe 7–19 lượt nói. Mỗi bài 6 câu trắc nghiệm A–D, một đáp án đúng.
+- **Dạng câu hỏi:** không chỉ tìm chi tiết. Mỗi bài có ít nhất 2 câu đòi hỏi suy luận, paraphrase, nhận ra quan điểm hoặc thái độ của tác giả, hoặc ý chính của đoạn. Đề dùng cách diễn đạt khác với văn bản gốc (paraphrase), không lặp nguyên từ.
+- **Bài nghe:** có tự sửa (đổi ngày, đổi giá), con số gây nhiễu và thông tin bị bác bỏ; người nghe phải chọn thông tin cuối cùng.
 - **Soạn mới hoàn toàn**, không chép đề IELTS hay văn bản có bản quyền.
-- **Đáp án nhiễu** phải hợp lý: dùng thông tin có trong bài nhưng không trả lời đúng câu hỏi (con số khác, chi tiết ở đoạn khác). Rải đáp án đúng đều ở A, B, C, D.
+- **Đáp án nhiễu** phải hợp lý: dùng thông tin có trong bài nhưng không trả lời đúng câu hỏi (con số khác, chi tiết ở đoạn khác). Rải đáp án đúng đều ở A, B, C, D. Chuỗi `id` bài mới kết thúc bằng hậu tố mức độ (ví dụ `-65`), để điểm cao nhất lưu trong trình duyệt không lẫn giữa các phiên bản nội dung.
 - **Số trong bài nghe** (giờ, tiền, năm) đọc rõ, tránh số điện thoại và địa chỉ email dài vì giọng tổng hợp đọc dễ nhầm.
 - **Ngôn ngữ:** bài đọc, bài nghe, câu hỏi và đáp án bằng tiếng Anh; giao diện, `topic`, `setting`, `gloss` (nghĩa), `ex` (giải thích) bằng tiếng Việt. `ex` nêu câu bằng chứng trong ngoặc kép “ ” và vì sao đáp án đúng; câu có bẫy thì giải thích luôn bẫy.
 - **Trong chuỗi JS** dùng dấu nháy kép ngoài; dấu nháy trong tiếng Anh viết `'` hoặc `’`, tránh `"` bên trong.

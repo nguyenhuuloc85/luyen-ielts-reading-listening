@@ -1,4 +1,4 @@
-# Luyện đọc và nghe IELTS (~band 5.5)
+# Luyện đọc và nghe IELTS (~band 6.5, bậc 4 trong khung 6 bậc Việt Nam)
 
 Ứng dụng một tệp `index.html`, mở thẳng bằng trình duyệt (cần mạng để tải phông chữ).
 
