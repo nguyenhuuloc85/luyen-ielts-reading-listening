@@ -1,0 +1,475 @@
+<title>Luyện đọc IELTS</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap">
+<style>
+/* Layout: two-column exam sheet (passage left, questions right); stacks on phones. */
+:root {
+  --paper: #f3f5f8;
+  --card: #ffffff;
+  --ink: #17202e;
+  --muted: #5d6879;
+  --line: #d9dee7;
+  --accent: #1f4fd8;
+  --accent-soft: #e6ecfc;
+  --good: #1b7f4b;
+  --good-soft: #e1f4ea;
+  --bad: #b3261e;
+  --bad-soft: #fbe7e5;
+  --mark: #fff0b3;
+  --font-ui: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-read: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f141c; --card: #171e29; --ink: #e6eaf1; --muted: #9aa5b6; --line: #2b3545;
+    --accent: #7fa2ff; --accent-soft: #1c2742; --good: #5fd39a; --good-soft: #14301f;
+    --bad: #ff8a80; --bad-soft: #3a1b19; --mark: #4a3f0f; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f141c; --card: #171e29; --ink: #e6eaf1; --muted: #9aa5b6; --line: #2b3545;
+  --accent: #7fa2ff; --accent-soft: #1c2742; --good: #5fd39a; --good-soft: #14301f;
+  --bad: #ff8a80; --bad-soft: #3a1b19; --mark: #4a3f0f; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--paper); color: var(--ink); font-family: var(--font-ui);
+  font-size: 15px; line-height: 1.55; margin: 0;
+  padding-block: 20px 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 1200px; margin: 0 auto; }
+header { display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: end; justify-content: space-between; margin-bottom: 16px; }
+h1 { font-size: 1.5rem; margin: 0; letter-spacing: -0.01em; text-wrap: balance; }
+.sub { color: var(--muted); margin: 2px 0 0; }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.tab {
+  font: inherit; text-align: left; background: var(--card); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 6px; padding: 8px 14px; cursor: pointer; min-width: 0;
+}
+.tab small { display: block; color: var(--muted); font-size: 0.78rem; }
+.tab[aria-selected="true"] { border-color: var(--accent); background: var(--accent-soft); box-shadow: inset 0 -3px 0 var(--accent); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sheet { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+.passage, .qpanel { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 22px 24px; min-width: 0; }
+.passage { position: sticky; top: calc(12px + env(safe-area-inset-top, 0px)); max-height: calc(100vh - 24px - env(safe-area-inset-top, 0px)); overflow-y: auto; }
+.passage h2 { font-family: var(--font-read); font-size: 1.45rem; margin: 0 0 4px; text-wrap: balance; }
+.meta { color: var(--muted); font-size: 0.85rem; margin: 0 0 14px; }
+.para { display: grid; grid-template-columns: 1.6rem minmax(0, 1fr); gap: 8px; padding: 6px 6px 6px 0; border-radius: 4px; transition: background 0.2s; }
+.para .L { font-family: var(--font-mono); font-weight: 500; color: var(--accent); padding-top: 3px; }
+.para p { margin: 0; font-family: var(--font-read); font-size: 1.07rem; line-height: 1.7; }
+.para.hl { background: var(--mark); }
+.gloss { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 10px; font-size: 0.9rem; }
+.gloss summary { cursor: pointer; font-weight: 600; }
+.gloss dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 8px 0 0; }
+.gloss dt { font-weight: 600; } .gloss dd { margin: 0; color: var(--muted); }
+.bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; justify-content: space-between; margin-bottom: 14px; }
+.timer { font-family: var(--font-mono); font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.prog { color: var(--muted); font-size: 0.88rem; }
+.q { border-top: 1px solid var(--line); padding: 14px 0; }
+.q:first-of-type { border-top: 0; padding-top: 0; }
+.q h3 { font-size: 0.98rem; margin: 0 0 8px; font-weight: 600; display: grid; grid-template-columns: 1.7rem minmax(0, 1fr); }
+.q h3 span:first-child { color: var(--muted); font-variant-numeric: tabular-nums; }
+.opt {
+  display: grid; grid-template-columns: 1.4rem minmax(0, 1fr); gap: 8px; align-items: start;
+  padding: 8px 10px; margin: 4px 0; border: 1px solid var(--line); border-radius: 6px; cursor: pointer;
+}
+.opt:hover { border-color: var(--accent); }
+.opt input { margin: 3px 0 0; accent-color: var(--accent); }
+.opt b { font-family: var(--font-mono); font-weight: 500; color: var(--muted); margin-right: 6px; }
+.opt.sel { border-color: var(--accent); background: var(--accent-soft); }
+.locked .opt { cursor: default; } .locked .opt:hover { border-color: var(--line); }
+.locked .opt.sel { background: var(--card); }
+.locked .opt.ok { border-color: var(--good); background: var(--good-soft); }
+.locked .opt.no { border-color: var(--bad); background: var(--bad-soft); }
+.ex { margin: 8px 0 0; padding: 10px 12px; border-radius: 6px; background: var(--paper); font-size: 0.9rem; }
+.ex .tag { font-weight: 600; } .ex.ok .tag { color: var(--good); } .ex.no .tag { color: var(--bad); }
+.linkbtn { font: inherit; color: var(--accent); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+.btn { font: inherit; font-weight: 600; border-radius: 6px; padding: 10px 18px; cursor: pointer; border: 1px solid var(--accent); background: var(--accent); color: var(--paper); }
+.btn.alt { background: transparent; color: var(--accent); }
+.result { border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; margin-bottom: 16px; background: var(--accent-soft); }
+.result .big { font-size: 1.9rem; font-weight: 600; font-variant-numeric: tabular-nums; }
+.result p { margin: 4px 0 0; color: var(--muted); }
+.note { color: var(--muted); font-size: 0.82rem; margin-top: 20px; }
+.player { border: 1px solid var(--line); border-radius: 8px; padding: 14px; background: var(--paper); display: grid; gap: 10px; }
+.prow { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.prow label { color: var(--muted); display: flex; gap: 6px; align-items: center; }
+.prow select { font: inherit; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 6px; padding: 6px 8px; }
+.track { height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+#pbar { height: 100%; width: 0; background: var(--accent); transition: width 0.3s; }
+.para.tl { grid-template-columns: 3.6rem minmax(0, 1fr); }
+.para.tl .L { font-family: var(--font-ui); font-size: 0.85rem; font-weight: 600; }
+@media (max-width: 860px) {
+  .sheet { grid-template-columns: minmax(0, 1fr); }
+  .passage { position: static; max-height: none; padding: 16px; }
+  .qpanel { padding: 16px; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Luyện đọc IELTS</h1>
+      <p class="sub">Trình độ khoảng band 5.5 · 3 bài đọc và 1 bài nghe · 6 câu trắc nghiệm mỗi bài</p>
+    </div>
+  </header>
+  <div class="tabs" id="tabs" role="tablist" aria-label="Chọn bài đọc"></div>
+  <div class="sheet">
+    <article class="passage" id="passage" aria-label="Bài đọc"></article>
+    <section class="qpanel" id="qpanel" aria-label="Câu hỏi"></section>
+  </div>
+  <p class="note">Điểm chỉ để tự đánh giá, không quy đổi chính thức sang band IELTS. Bài đọc, bài nghe và câu hỏi được soạn riêng cho ứng dụng này. Bài nghe dùng giọng đọc tổng hợp của trình duyệt nên giọng và chất lượng khác nhau tùy thiết bị, không phải giọng người thật.</p>
+</div>
+
+<script>
+const DATA = [
+{
+  id: "cycling", title: "The Rise of Urban Cycling", topic: "Thành phố & giao thông",
+  paras: [
+    "Twenty years ago, many city planners believed that cycling was a hobby for sports fans and not a serious way to travel. Roads were built for cars, and cyclists often had to share narrow lanes with fast traffic. Today the picture is very different. In cities such as Copenhagen and Amsterdam, more than a third of all trips to work or school are made by bicycle, and other cities are trying to follow their example.",
+    "The change did not happen by accident. In the 1970s, rising oil prices and growing concern about road accidents made many Danish families rethink their use of cars. Citizens held large protests, and local governments responded by building separate cycle lanes protected from traffic by kerbs or lines of parked cars. Experts say this physical separation is the most important factor, because most people will only cycle if they feel safe.",
+    "Cycling brings clear benefits to the city. A bicycle takes up much less space than a car, so streets can carry more people at the same time. Bicycles produce no exhaust gases and almost no noise. Doctors also point out that people who cycle to work are healthier, and some studies suggest they take fewer days off sick. For city governments, building a cycle lane costs far less than building a new road or underground line.",
+    "However, not everyone is happy. Shop owners sometimes worry that removing car parking will drive customers away, although research in several cities has found that people who arrive by bike or on foot often visit shops more frequently, even if they spend less on each visit. Others argue that cycling is unsuitable in cities with steep hills, heavy rain or very hot summers. Electric bicycles are one answer to this problem, as they make hills easier and allow riders to arrive at work without being tired or sweaty.",
+    "Planners agree that success needs more than paint on the road. Bicycles need safe places to be parked, as theft discourages many people from buying a good one. Schools can teach children to ride safely, and employers can provide showers for staff. Most importantly, the changes must be consistent: a cycle lane that suddenly ends at a busy junction may be more dangerous than no lane at all."
+  ],
+  gloss: [["kerb","bờ vỉa, lề đường"],["exhaust gases","khí thải"],["junction","ngã giao nhau"],["sweaty","đẫm mồ hôi"],["theft","trộm cắp"]],
+  qs: [
+    { q: "What did many city planners believe about cycling twenty years ago?", p: "A", a: 1,
+      o: ["It was too dangerous for children.", "It was mainly a hobby for sports fans.", "It was cheaper than public transport.", "It was only suitable for short trips."],
+      ex: "Đoạn A: “a hobby for sports fans and not a serious way to travel”." },
+    { q: "Why did many Danish families rethink their use of cars in the 1970s?", p: "B", a: 2,
+      o: ["Cars were banned in city centres.", "Bicycles had become much cheaper.", "Oil prices rose and people worried about accidents.", "Cycle lanes were already everywhere."],
+      ex: "Đoạn B: “rising oil prices and growing concern about road accidents”. Làn xe đạp được xây sau đó, là kết quả chứ không phải nguyên nhân." },
+    { q: "According to experts, what is the most important factor in getting people to cycle?", p: "B", a: 0,
+      o: ["Keeping cyclists separate from traffic.", "Making bicycles cheaper to buy.", "Teaching children to ride.", "Providing showers at work."],
+      ex: "Đoạn B: “this physical separation is the most important factor”. Các ý còn lại (đoạn E) là điều kiện bổ trợ, không phải yếu tố quan trọng nhất." },
+    { q: "What did research find about people who arrive at shops by bike or on foot?", p: "D", a: 3,
+      o: ["They spend more on each visit.", "They prefer large supermarkets.", "They rarely visit the same shop twice.", "They often visit more frequently."],
+      ex: "Đoạn D: “often visit shops more frequently, even if they spend less on each visit”. Phương án A sai vì họ chi ít hơn mỗi lần." },
+    { q: "Why are electric bicycles mentioned in paragraph D?", p: "D", a: 1,
+      o: ["They are cheaper than ordinary bicycles.", "They help with problems such as steep hills.", "They are safer in heavy rain.", "They need no parking space."],
+      ex: "Đoạn D: xe đạp điện “make hills easier and allow riders to arrive at work without being tired or sweaty”." },
+    { q: "What does the writer say about a cycle lane that ends suddenly at a busy junction?", p: "E", a: 2,
+      o: ["It is common in Denmark.", "It encourages more people to ride.", "It may be more dangerous than having no lane.", "It is easy and cheap to repair."],
+      ex: "Đoạn E: “may be more dangerous than no lane at all”." }
+  ]
+},
+{
+  id: "sleep", title: "Why Sleep Matters", topic: "Sức khỏe & khoa học",
+  paras: [
+    "Most adults need between seven and nine hours of sleep each night, yet surveys in many countries show that a growing number of people sleep for less than six. Scientists used to believe that the brain simply switches off during sleep. We now know that it is very active, and that sleep plays an important role in memory, mood and physical health.",
+    "Sleep happens in cycles of about ninety minutes. Each cycle includes light sleep, deep sleep and a stage called REM, when most dreaming takes place. During deep sleep the body repairs muscles and strengthens the immune system. During REM sleep the brain sorts the information gathered during the day, deciding what to keep and what to forget. Students who sleep well after studying often remember more than those who stay up all night to revise.",
+    "The effects of poor sleep appear quickly. After just one night of short sleep, people find it harder to concentrate and are more likely to feel anxious or angry. Over many months, lack of sleep is linked to higher risks of heart disease and weight gain. Drivers who are tired react slowly, and experts estimate that tiredness is a factor in about one in five serious road accidents.",
+    "Modern life makes good sleep difficult. Bright screens in the evening reduce the body’s production of melatonin, a chemical that tells the brain it is time to rest. Caffeine, which stays in the body for many hours, can also delay sleep even when it is drunk in the afternoon. Meanwhile, shift workers who must sleep during the day often struggle because their body clock is out of step with daylight.",
+    "Fortunately, simple habits can help. Going to bed and waking up at the same time every day, even at weekends, trains the body clock. A cool, dark and quiet bedroom is also helpful. Some people find that a short walk or a warm bath before bed makes them sleepy. Experts add that a short nap of twenty minutes in the early afternoon can improve alertness, but longer naps may make it harder to sleep at night."
+  ],
+  gloss: [["immune system","hệ miễn dịch"],["concentrate","tập trung"],["melatonin","hormone gây buồn ngủ"],["alertness","sự tỉnh táo"],["shift worker","người làm việc theo ca"]],
+  qs: [
+    { q: "What did scientists used to believe about the brain during sleep?", p: "A", a: 1,
+      o: ["It works harder than during the day.", "It simply switches off.", "It repairs the muscles.", "It only produces dreams."],
+      ex: "Đoạn A: “Scientists used to believe that the brain simply switches off during sleep”." },
+    { q: "What happens during REM sleep?", p: "B", a: 3,
+      o: ["The body repairs its muscles.", "The immune system is weakened.", "The body temperature falls.", "The brain sorts the day’s information."],
+      ex: "Đoạn B: “During REM sleep the brain sorts the information gathered during the day”. Sửa cơ bắp xảy ra ở giai đoạn ngủ sâu." },
+    { q: "Tiredness is a factor in roughly what proportion of serious road accidents?", p: "C", a: 0,
+      o: ["One in five", "One in ten", "One in three", "One in two"],
+      ex: "Đoạn C: “about one in five serious road accidents”." },
+    { q: "Why do bright screens in the evening make sleep more difficult?", p: "D", a: 2,
+      o: ["They make the bedroom too warm.", "They cause anxiety and anger.", "They reduce the body’s production of melatonin.", "They stay in the body for many hours."],
+      ex: "Đoạn D: “reduce the body’s production of melatonin”. “Stays in the body for many hours” nói về caffeine, không phải màn hình." },
+    { q: "Why do shift workers often struggle to sleep during the day?", p: "D", a: 1,
+      o: ["They drink too much caffeine.", "Their body clock does not match daylight.", "They go to bed at different times each week.", "They use bright screens at work."],
+      ex: "Đoạn D: “their body clock is out of step with daylight”." },
+    { q: "What do experts say about napping?", p: "E", a: 3,
+      o: ["Naps should be avoided completely.", "Long naps improve alertness the most.", "A nap should be taken before bed.", "A short early-afternoon nap can help, but a long one may disturb night sleep."],
+      ex: "Đoạn E: ngủ trưa 20 phút đầu giờ chiều giúp tỉnh táo, nhưng “longer naps may make it harder to sleep at night”." }
+  ]
+},
+{
+  id: "bees", title: "Bees in the City", topic: "Môi trường & đô thị",
+  paras: [
+    "When people imagine bees, they usually think of fields and forests. Yet in recent years, hives have appeared on the roofs of hotels, offices and even a famous opera house in Paris. City beekeeping has become fashionable, and some cities now report that their bees produce more honey than bees in the nearby countryside.",
+    "There are several reasons for this. Modern farming often uses large fields with only one crop, so for much of the year there is little for bees to eat. Pesticides can also harm them. In contrast, a city contains parks, gardens, balconies and street trees, which flower at different times from spring to autumn. Because winters in cities are slightly warmer than in rural areas, bees can also start collecting food earlier in the year.",
+    "Beekeepers say that city honey has its own character. Its taste depends on which plants are nearby, so honey from one neighbourhood may be light and sweet while honey from another is darker and stronger. Some shops now sell honey with the name of the street or district on the label, and customers are happy to pay a higher price for it.",
+    "However, experts warn that the trend has a hidden problem. Honey bees are not the only insects that need flowers. Wild bees and other pollinators, such as butterflies, compete for the same food, and when too many hives are placed in one area, wild species may lose out. Researchers in London found that some districts already have more hives than the local plants can support. They recommend that new beekeepers plant more flowers rather than simply adding more hives.",
+    "Despite these concerns, urban beekeeping has benefits beyond honey. Many beekeepers work with schools, teaching children where food comes from and why insects matter. Office workers who look after rooftop hives often say that the hobby reduces stress. If it is managed carefully, the city bee may help people reconnect with nature at the very heart of the modern city."
+  ],
+  gloss: [["hive","tổ ong, thùng nuôi ong"],["pesticide","thuốc trừ sâu"],["pollinator","loài thụ phấn"],["compete","cạnh tranh"],["reconnect","kết nối lại"]],
+  qs: [
+    { q: "What do some cities report about their bees?", p: "A", a: 2,
+      o: ["They are larger than country bees.", "They live longer than country bees.", "They produce more honey than bees in the countryside.", "They are protected by law."],
+      ex: "Đoạn A: “produce more honey than bees in the nearby countryside”." },
+    { q: "Why is there little food for bees on modern farms for much of the year?", p: "B", a: 0,
+      o: ["The fields contain only one crop.", "The fields are too small.", "Farmers remove all the flowers by hand.", "The winters are too cold."],
+      ex: "Đoạn B: “large fields with only one crop, so for much of the year there is little for bees to eat”." },
+    { q: "Why can bees in cities start collecting food earlier in the year?", p: "B", a: 3,
+      o: ["City flowers grow faster.", "There are fewer birds in cities.", "Beekeepers feed them in winter.", "City winters are slightly warmer."],
+      ex: "Đoạn B: “winters in cities are slightly warmer than in rural areas”." },
+    { q: "According to paragraph C, why does honey taste different from one neighbourhood to another?", p: "C", a: 1,
+      o: ["Different bees are used in each area.", "It depends on which plants are nearby.", "Shops add different flavours.", "The honey is stored for different lengths of time."],
+      ex: "Đoạn C: “Its taste depends on which plants are nearby”." },
+    { q: "What problem do experts warn about?", p: "D", a: 2,
+      o: ["Honey bees spread disease to butterflies.", "City honey is unsafe to eat.", "Too many hives may harm wild pollinators.", "Rooftop hives are dangerous for office workers."],
+      ex: "Đoạn D: “when too many hives are placed in one area, wild species may lose out”." },
+    { q: "What do the researchers in London recommend?", p: "D", a: 1,
+      o: ["Banning hives from the city centre.", "Planting more flowers instead of adding more hives.", "Moving hives to the countryside.", "Selling honey at a lower price."],
+      ex: "Đoạn D: “plant more flowers rather than simply adding more hives”." }
+  ]
+},
+{
+  id: "cooking", kind: "listening", title: "Cooking Class Enquiry", topic: "Nghe · hội thoại điện thoại",
+  setting: "Mark gọi điện đến một trung tâm cộng đồng để hỏi về lớp nấu ăn và đăng ký một chỗ.",
+  speakers: ["Karen", "Mark"],
+  script: [
+    { who: "Karen", text: "Good morning, Riverside Community Centre. Karen speaking." },
+    { who: "Mark", text: "Hello. I saw an advertisement for your cooking classes in the local newspaper. I'd like to find out more, please." },
+    { who: "Karen", text: "Of course. We have two courses at the moment. There's a beginners' course on Tuesday evenings, and an advanced course on Saturday mornings." },
+    { who: "Mark", text: "I've only ever cooked basic things like eggs and pasta, so the beginners' course sounds better for me. What time does it start?" },
+    { who: "Karen", text: "It starts at half past six and finishes at eight thirty. It runs for eight weeks, beginning on the third of March." },
+    { who: "Mark", text: "That's perfect, I finish work at five. How much does it cost?" },
+    { who: "Karen", text: "The fee is one hundred and twenty pounds. If you are a member of the centre, you get a ten percent discount, but membership costs fifteen pounds a year." },
+    { who: "Mark", text: "Hmm. With the discount the course would cost one hundred and eight pounds, but then I'd pay fifteen for membership, which makes one hundred and twenty-three. So it isn't worth joining unless I plan to take other courses." },
+    { who: "Karen", text: "That's right. Many people join because they also like our swimming pool." },
+    { who: "Mark", text: "I'll think about that. Do I need to bring anything to the class?" },
+    { who: "Karen", text: "Just an apron and a container to take your food home. All the ingredients and equipment are provided." },
+    { who: "Mark", text: "Great. And where exactly is the centre?" },
+    { who: "Karen", text: "We're on Bridge Road, opposite the library. The nearest car park is behind the supermarket, but it's often full, so I'd recommend coming by bus. The number twelve stops right outside." },
+    { who: "Mark", text: "Thanks. I'd like to book a place, please." },
+    { who: "Karen", text: "Certainly. Could I have your name and phone number?" },
+    { who: "Mark", text: "It's Mark Dawson, that's D, A, W, S, O, N." },
+    { who: "Karen", text: "Thank you, Mr Dawson. I'll send you a confirmation by email. Please arrive ten minutes early on the first night to fill in a form." }
+  ],
+  qs: [
+    { q: "Where did Mark see the advertisement for the cooking classes?", line: 1, a: 0,
+      o: ["In a local newspaper", "On the centre’s website", "On a poster at the library", "A friend told him"],
+      ex: "Mark nói: “in the local newspaper”." },
+    { q: "Why does Mark choose the beginners’ course?", line: 3, a: 2,
+      o: ["The course is cheaper.", "It is held at the weekend.", "He has little cooking experience.", "A friend recommended it."],
+      ex: "Mark nói anh chỉ nấu được món đơn giản (“only ever cooked basic things”). Lớp cuối tuần là lớp nâng cao, không phải lớp anh chọn." },
+    { q: "What time does the beginners’ course finish?", line: 4, a: 3,
+      o: ["6.30", "7.30", "8.00", "8.30"],
+      ex: "Karen nói: “starts at half past six and finishes at eight thirty”. 6.30 là giờ bắt đầu." },
+    { q: "Why does Mark decide not to become a member?", line: 7, a: 1,
+      o: ["Membership is too difficult to arrange.", "It would cost more in total unless he takes other courses.", "He does not like swimming.", "He is already a member."],
+      ex: "Giảm 10% còn 108 bảng, cộng phí hội viên 15 bảng thành 123 bảng, cao hơn mức 120 bảng gốc. Mark kết luận “it isn’t worth joining unless I plan to take other courses”." },
+    { q: "What must Mark bring to the class?", line: 10, a: 3,
+      o: ["Ingredients and an apron", "Cooking equipment and a container", "A form and an apron", "An apron and a container"],
+      ex: "Karen nói: “Just an apron and a container”. Nguyên liệu và dụng cụ do trung tâm cung cấp, còn biểu mẫu là việc của buổi đầu." },
+    { q: "How does Karen recommend that Mark travels to the centre?", line: 12, a: 2,
+      o: ["By car, parking behind the supermarket", "On foot from the library", "By bus", "By bicycle"],
+      ex: "Karen nói: “I’d recommend coming by bus”. Bãi đỗ xe sau siêu thị thường đầy." }
+  ]
+},
+{
+  id: "museum", kind: "listening", title: "Museum Tour Talk", topic: "Nghe · bài nói một người",
+  setting: "Một hướng dẫn viên chào đoàn khách và giới thiệu chương trình tham quan bảo tàng hàng hải.",
+  speakers: ["Tom"],
+  script: [
+    { who: "Tom", text: "Good afternoon, everyone, and welcome to the Harbour Island Maritime Museum. My name is Tom, and I'll be your guide today. Before we begin, I'd like to explain a few things about the visit." },
+    { who: "Tom", text: "The tour lasts about ninety minutes, and we'll finish at the café on the ground floor, where you're welcome to have tea or coffee. Please note that you can take photographs everywhere, but you mustn't use a flash in the Old Ships Gallery, because it can damage the paintings." },
+    { who: "Tom", text: "We'll start in the Discovery Hall. This building was the original customs house in the nineteen twenties, and it became a museum in nineteen eighty-five. Last year, the roof was repaired after a storm, so you'll see some new wood above your heads." },
+    { who: "Tom", text: "From there, we'll walk to the Old Ships Gallery on the first floor. Here you can see models of more than forty ships. The oldest model was a gift from a local fishing family, and it's still the most popular with visitors." },
+    { who: "Tom", text: "After that, there's a short film about life at sea. It's shown in the theatre on the second floor, but the lift is being repaired at the moment. If you'd rather avoid the stairs, just tell me, and I'll take you through the garden to meet the rest of the group at the theatre." },
+    { who: "Tom", text: "For younger visitors, we have a treasure hunt. Children can pick up a free activity sheet at the information desk, and anyone who completes it gets a small prize from the shop." },
+    { who: "Tom", text: "Finally, the shop is open until five thirty, and today's ticket gives you a fifteen percent discount, but only for today. Right, if everyone is ready, please follow me." }
+  ],
+  qs: [
+    { q: "How long does the guided tour last?", line: 1, a: 2,
+      o: ["Sixty minutes", "Seventy-five minutes", "Ninety minutes", "Two hours"],
+      ex: "Tom nói: “The tour lasts about ninety minutes”." },
+    { q: "Where must visitors avoid using a flash?", line: 1, a: 1,
+      o: ["In the Discovery Hall", "In the Old Ships Gallery", "In the theatre", "In the café"],
+      ex: "Tom nói: “you mustn’t use a flash in the Old Ships Gallery”. Chụp ảnh được phép ở mọi nơi, chỉ cấm đèn flash trong phòng tranh." },
+    { q: "What happened to the Discovery Hall last year?", line: 2, a: 2,
+      o: ["It became a museum.", "It was used as a customs house.", "Its roof was repaired.", "It was closed for painting."],
+      ex: "Tom nói: “Last year, the roof was repaired after a storm”. Việc trở thành bảo tàng xảy ra năm 1985, còn nhà hải quan là công dụng ban đầu từ thập niên 1920." },
+    { q: "What does Tom say about the oldest ship model?", line: 3, a: 3,
+      o: ["It was made by the museum’s staff.", "It was bought at an auction.", "It was found at sea.", "It was a gift from a local family."],
+      ex: "Tom nói: “a gift from a local fishing family”." },
+    { q: "What problem does Tom mention about the theatre?", line: 4, a: 1,
+      o: ["It is closed today.", "The lift to it is being repaired.", "It is too small for the whole group.", "The film is not in English."],
+      ex: "Tom nói: “the lift is being repaired at the moment”. Nhà hát vẫn mở, khách có thể đi lối khác qua khu vườn." },
+    { q: "How can children win a small prize?", line: 5, a: 0,
+      o: ["By completing an activity sheet", "By answering questions in the café", "By buying something in the shop", "By drawing a ship in the gallery"],
+      ex: "Tom nói: trẻ nhận phiếu hoạt động miễn phí ở quầy thông tin và “anyone who completes it gets a small prize”." }
+  ]
+}
+];
+
+const $ = (s) => document.querySelector(s);
+const LABELS = "ABCDEFG";
+const state = {
+  cur: 0,
+  answers: Object.fromEntries(DATA.map(d => [d.id, Array(d.qs.length).fill(null)])),
+  done: Object.fromEntries(DATA.map(d => [d.id, false])),
+  secs: Object.fromEntries(DATA.map(d => [d.id, 0])),
+  best: {}
+};
+try { state.best = JSON.parse(localStorage.getItem("ielts-best") || "{}") || {}; } catch (e) { state.best = {}; }
+function saveBest(id, score) {
+  if ((state.best[id] ?? -1) < score) {
+    state.best[id] = score;
+    try { localStorage.setItem("ielts-best", JSON.stringify(state.best)); } catch (e) {}
+  }
+}
+const words = (d) => d.paras.join(" ").split(/\s+/).length;
+const fmt = (s) => String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0");
+const esc = (t) => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+function renderTabs() {
+  $("#tabs").innerHTML = DATA.map((d, i) => {
+    const b = state.best[d.id];
+    return `<button class="tab" role="tab" id="tab-${i}" aria-selected="${i === state.cur}" data-i="${i}">
+      ${d.kind === "listening" ? "Nghe" : "Đọc"} · ${esc(d.title)}<small>${esc(d.topic)}${b !== undefined ? " · tốt nhất " + b + "/" + d.qs.length : ""}</small></button>`;
+  }).join("");
+}
+
+const spk = { token: 0, playing: false, i: 0, rate: 1, plays: 0, msg: "" };
+function stopSpeech() {
+  spk.token++; spk.playing = false; spk.i = 0;
+  try { if (window.speechSynthesis) speechSynthesis.cancel(); } catch (e) {}
+}
+function updatePlayer(d) {
+  const s = $("#pstat"); if (!s) return;
+  const n = d.script.length;
+  s.textContent = spk.msg || (spk.playing ? "Đang phát: lượt nói " + (spk.i + 1) + "/" + n : spk.plays ? "Đã nghe " + spk.plays + " lần" : "Chưa phát");
+  const bar = $("#pbar"); if (bar) bar.style.width = (spk.playing ? (spk.i / n) * 100 : 0) + "%";
+  const b = $("#play"); if (b) b.textContent = spk.playing ? "Phát lại từ đầu" : "Nghe";
+}
+function speakFrom(d) {
+  if (!("speechSynthesis" in window)) { spk.msg = "Trình duyệt này không hỗ trợ giọng đọc."; updatePlayer(d); return; }
+  stopSpeech(); spk.msg = ""; spk.playing = true; spk.plays++;
+  const my = spk.token;
+  const vs = speechSynthesis.getVoices().filter(v => /^en/i.test(v.lang));
+  const next = (k) => {
+    if (my !== spk.token) return;
+    if (k >= d.script.length) { spk.playing = false; spk.i = 0; updatePlayer(d); return; }
+    spk.i = k; updatePlayer(d);
+    const line = d.script[k], side = line.who === d.speakers[0] ? 0 : 1;
+    const u = new SpeechSynthesisUtterance(line.text);
+    u.lang = "en-GB"; u.rate = spk.rate * 0.95; u.pitch = d.speakers.length < 2 ? 1 : side ? 0.8 : 1.2;
+    if (vs.length) u.voice = vs[side] || vs[0];
+    u.onend = () => setTimeout(() => next(k + 1), 400);
+    u.onerror = () => {
+      if (my !== spk.token) return;
+      spk.playing = false;
+      spk.msg = "Không phát được âm thanh trên thiết bị này. Thử mở bằng Chrome hoặc Edge, hoặc nộp bài để đọc bản ghi.";
+      updatePlayer(d);
+    };
+    speechSynthesis.speak(u);
+  };
+  next(0);
+}
+function renderListening(d) {
+  const done = state.done[d.id];
+  const rates = [[0.8, "Chậm"], [1, "Thường"], [1.2, "Nhanh"]];
+  $("#passage").innerHTML = `<h2>${esc(d.title)}</h2>
+    <p class="meta">${d.speakers.length > 1 ? "Hội thoại " + d.speakers.length + " người" : "Bài nói một người"} · ${d.script.length} lượt nói</p>
+    <p>${esc(d.setting)}</p>
+    <div class="player">
+      <div class="prow">
+        <button class="btn" id="play" type="button">Nghe</button>
+        <button class="btn alt" id="stop" type="button">Dừng</button>
+        <label>Tốc độ <select id="rate">${rates.map(r => `<option value="${r[0]}" ${r[0] === spk.rate ? "selected" : ""}>${r[1]}</option>`).join("")}</select></label>
+      </div>
+      <div class="track"><div id="pbar"></div></div>
+      <div class="prog" id="pstat"></div>
+    </div>
+    <p class="meta">Đọc nhanh các câu hỏi bên cạnh trước khi nghe và chú ý từ khóa. Kỳ thi thật chỉ phát một lần. Bản ghi chỉ hiện sau khi nộp bài.</p>
+    ${done ? `<h3 style="margin:16px 0 6px">Bản ghi</h3>` + d.script.map((l, i) => `<div class="para tl" id="para-${i}"><span class="L">${esc(l.who)}</span><p>${esc(l.text)}</p></div>`).join("") : ""}`;
+  updatePlayer(d);
+}
+
+function renderPassage() {
+  const d = DATA[state.cur];
+  if (d.kind === "listening") return renderListening(d);
+  $("#passage").innerHTML = `<h2>${esc(d.title)}</h2>
+    <p class="meta">${words(d)} từ · ${d.paras.length} đoạn (A–${LABELS[d.paras.length - 1]})</p>
+    ${d.paras.map((p, i) => `<div class="para" id="para-${LABELS[i]}"><span class="L">${LABELS[i]}</span><p>${esc(p)}</p></div>`).join("")}
+    <details class="gloss"><summary>Từ khó trong bài (${d.gloss.length})</summary>
+      <dl>${d.gloss.map(g => `<dt>${esc(g[0])}</dt><dd>${esc(g[1])}</dd>`).join("")}</dl></details>`;
+  $("#passage").scrollTop = 0;
+}
+
+function renderQuestions() {
+  const d = DATA[state.cur], ans = state.answers[d.id], done = state.done[d.id];
+  let html = "";
+  if (done) {
+    const score = d.qs.filter((q, i) => ans[i] === q.a).length;
+    const msg = score === d.qs.length ? "Làm đúng toàn bộ." : score >= d.qs.length - 1 ? "Rất tốt, chỉ sai một câu." : score >= Math.ceil(d.qs.length / 2) ? "Khá ổn, xem lại các câu sai bên dưới." : "Nên đọc lại bài và đối chiếu từng đoạn được chỉ ra.";
+    html += `<div class="result" role="status"><div class="big">${score}/${d.qs.length}</div><p>${msg} Thời gian làm bài: ${fmt(state.secs[d.id])}.</p></div>`;
+  } else {
+    const n = ans.filter(a => a !== null).length;
+    html += `<div class="bar"><span class="timer" id="timer">${fmt(state.secs[d.id])}</span><span class="prog" id="prog">Đã trả lời ${n}/${d.qs.length}</span></div>`;
+  }
+  html += `<form id="form" onsubmit="return false">` + d.qs.map((q, i) => {
+    const opts = q.o.map((t, j) => {
+      let cls = "opt";
+      if (ans[i] === j) cls += " sel";
+      if (done) { if (j === q.a) cls += " ok"; else if (ans[i] === j) cls += " no"; }
+      return `<label class="${cls}"><input type="radio" name="q${i}" value="${j}" ${ans[i] === j ? "checked" : ""} ${done ? "disabled" : ""}><span><b>${LABELS[j]}</b>${esc(t)}</span></label>`;
+    }).join("");
+    let ex = "";
+    if (done) {
+      const ok = ans[i] === q.a;
+      ex = `<div class="ex ${ok ? "ok" : "no"}"><span class="tag">${ok ? "Đúng" : ans[i] === null ? "Chưa trả lời" : "Sai"} · đáp án ${LABELS[q.a]}.</span> ${esc(q.ex)}
+        <button type="button" class="linkbtn" data-para="${d.kind === "listening" ? q.line : q.p}">${d.kind === "listening" ? "Xem lượt nói" : "Xem đoạn " + q.p}</button></div>`;
+    }
+    return `<fieldset class="q ${done ? "locked" : ""}" style="border:0;margin:0;min-width:0;padding-inline:0"><h3><span>${i + 1}.</span><span>${esc(q.q)}${done || d.kind === "listening" ? "" : ` <small style="color:var(--muted)">(đoạn ${q.p})</small>`}</span></h3>${opts}${ex}</fieldset>`;
+  }).join("") + `</form>
+  <div class="actions">${done
+    ? `<button class="btn" id="retry" type="button">Làm lại bài này</button>${state.cur < DATA.length - 1 ? `<button class="btn alt" id="next" type="button">Bài tiếp theo</button>` : ""}`
+    : `<button class="btn" id="submit" type="button">Nộp bài</button>`}</div>`;
+  $("#qpanel").innerHTML = html;
+}
+
+function show(i) { stopSpeech(); state.cur = i; renderTabs(); renderPassage(); renderQuestions(); }
+
+function highlight(letter) {
+  document.querySelectorAll(".para.hl").forEach(e => e.classList.remove("hl"));
+  const el = document.getElementById("para-" + letter);
+  if (el) { el.classList.add("hl"); el.scrollIntoView({ behavior: "smooth", block: "center" }); }
+}
+
+document.addEventListener("click", (e) => {
+  const t = e.target.closest("button"); if (!t) return;
+  const d = DATA[state.cur];
+  if (t.classList.contains("tab")) show(+t.dataset.i);
+  else if (t.id === "submit") {
+    state.done[d.id] = true;
+    saveBest(d.id, d.qs.filter((q, i) => state.answers[d.id][i] === q.a).length);
+    stopSpeech(); renderTabs(); renderQuestions(); if (d.kind === "listening") renderPassage(); $("#qpanel").scrollIntoView({ behavior: "smooth", block: "start" });
+  } else if (t.id === "retry") {
+    state.answers[d.id] = Array(d.qs.length).fill(null); state.done[d.id] = false; state.secs[d.id] = 0;
+    document.querySelectorAll(".para.hl").forEach(x => x.classList.remove("hl"));
+    renderQuestions(); if (d.kind === "listening") { spk.plays = 0; spk.msg = ""; renderPassage(); }
+  } else if (t.id === "play") speakFrom(d);
+  else if (t.id === "stop") { stopSpeech(); updatePlayer(d); }
+  else if (t.id === "next") show(state.cur + 1);
+  else if (t.dataset.para) highlight(t.dataset.para);
+});
+
+document.addEventListener("change", (e) => {
+  if (e.target.id === "rate") { spk.rate = +e.target.value; return; }
+  if (!e.target.matches("#form input[type=radio]")) return;
+  const d = DATA[state.cur], qi = +e.target.name.slice(1);
+  state.answers[d.id][qi] = +e.target.value;
+  e.target.closest("fieldset").querySelectorAll(".opt").forEach(l => l.classList.toggle("sel", l.contains(e.target)));
+  const p = $("#prog"); if (p) p.textContent = "Đã trả lời " + state.answers[d.id].filter(a => a !== null).length + "/" + d.qs.length;
+});
+
+setInterval(() => {
+  const d = DATA[state.cur];
+  if (state.done[d.id]) return;
+  state.secs[d.id]++;
+  const t = $("#timer"); if (t) t.textContent = fmt(state.secs[d.id]);
+}, 1000);
+
+show(0);
+</script>
